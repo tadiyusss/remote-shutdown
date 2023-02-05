@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang='en'>
+    <head>
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1'>
+      <title>Bootstrap demo</title>
+      <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+      <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD' crossorigin='anonymous'>
+    </head>
+    <body class="bg-dark">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card shadow-sm bg-dark border-dark text-light">
+                        <div class="card-body p-5">
+                            <h2>Remote Shutdown</h2>
+                            <label for="pin" class="text-light mt-3 mb-1">Password</label>
+                            <input type="text" name="pin" id="pin" class="form-control bg-dark text-light">
+                            <label for="time" class="mt-3 mb-1">Time</label>
+                            <input type="number" value="0" id="time" name="time" class="form-control bg-dark text-light">
+                            <p class="mt-4" id="error"></p>
+                            <button class="btn btn-danger" onclick="submit()">Shutdown</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js' integrity='sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN' crossorigin='anonymous'></script>
+        <script>
+            let API_URL = "http://{{ request.environ['HTTP_HOST'] }}";
+            let pinInput = document.getElementById('pin');
+            let timeInput = document.getElementById('time');
+            let error = document.getElementById('error');
+
+            function submit() {
+                
+                let data = {
+                    'pin': pinInput.value,
+                    'time': timeInput.value
+                }
+                console.log(data);
+                $.post(API_URL + "/shutdown", data, function(result){
+                    error.innerHTML = result.status;
+                });
+            }
+        </script>
+    </body>
+</html>

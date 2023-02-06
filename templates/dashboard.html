@@ -40,7 +40,7 @@
                     'time': timeInput.value
                 }
                 console.log(data);
-                $.post(API_URL + "/shutdown", data, function(result){
+                $.post("/shutdown", data, function(result){
                     error.innerHTML = result.status;
                 });
             }

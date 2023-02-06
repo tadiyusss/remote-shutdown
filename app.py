@@ -13,7 +13,7 @@ def index():
 @app.route('/shutdown', methods=['POST'])
 def shutdown():
     if request.form.get('pin') == pin:
-        os.system('shutdown -s -t {}'.format(int(request.form.get('time'))))
+        #os.system('shutdown -s -t {}'.format(int(request.form.get('time'))))
         return {
             'status': 'Shutting down'
         }
